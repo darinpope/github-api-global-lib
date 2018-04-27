@@ -7,4 +7,6 @@ def call(Map config) {
     rawBody = rawBody.replaceAll("#DEVELOPER#",gitAuthorName())
     rawBody = rawBody.replaceAll("#BUILD_URL#",env.BUILD_URL)
     echo rawBody
+    def subjectLine = env.JOB_BASE_NAME + ' - ' + env.BUILD_NUMBER + ' - ' + currentBuild.currentResult
+    echo subjectLine
 }

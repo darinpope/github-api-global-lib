@@ -1,6 +1,12 @@
+@NonCPS
+def renderTemplate(input, binding) {
+    def engine = new groovy.text.SimpleTemplateEngine()
+    def template = engine.createTemplate(input).make(binding)
+    return template.toString()
+}
+
 def call(Map config) {
     echo 'inside sendNotification'
-    def engine = new groovy.text.SimpleTemplateEngine()
     def rawBody = libraryResource 'com/planetpope/emailtemplate/build-results.html'
     def binding = [
             applicationName: env.JOB_BASE_NAME,
@@ -9,8 +15,9 @@ def call(Map config) {
             developer      : gitAuthorName(),
             buildUrl       : env.BUILD_URL
     ]
-    def template = engine.createTemplate(rawBody).make(binding)
-    echo template.toString()
+
+    def render = renderTemplate(rawBody,binding)
+    echo render
     def subjectLine = env.JOB_BASE_NAME + ' - ' + env.BUILD_NUMBER + ' - ' + currentBuild.currentResult
     echo subjectLine
 }

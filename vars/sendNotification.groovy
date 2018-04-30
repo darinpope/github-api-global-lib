@@ -1,12 +1,16 @@
 def call(Map config) {
     echo 'inside sendNotification'
+    def engine = new groovy.text.SimpleTemplateEngine()
     def rawBody = libraryResource 'com/planetpope/emailtemplate/build-results.html'
-    rawBody = rawBody.replaceAll("#APPLICATION_NAME#",env.JOB_BASE_NAME)
-    rawBody = rawBody.replaceAll("#SOURCE_BRANCH#",env.GIT_BRANCH)
-    rawBody = rawBody.replaceAll("#BUILD_NUMBER#",env.BUILD_NUMBER)
-    rawBody = rawBody.replaceAll("#DEVELOPER#",gitAuthorName())
-    rawBody = rawBody.replaceAll("#BUILD_URL#",env.BUILD_URL)
-    echo rawBody
+    def binding = [
+            applicationName: env.JOB_BASE_NAME,
+            sourceBranch   : env.GIT_BRANCH,
+            buildNumber    : env.BUILD_NUMBER,
+            developer      : gitAuthorName(),
+            buildUrl       : env.BUILD_URL
+    ]
+    def template = engine.createTemplate(rawBody).make(binding)
+    echo template.toString()
     def subjectLine = env.JOB_BASE_NAME + ' - ' + env.BUILD_NUMBER + ' - ' + currentBuild.currentResult
     echo subjectLine
 }

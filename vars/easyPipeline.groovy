@@ -5,7 +5,7 @@ def call(body) {
     body()
 
     pipeline {
-        agent ${pipelineParams.agentLabel}
+        agent "${pipelineParams.agentLabel}"
         stages {
             stage("Prepare Build Environment") {
                 steps {

@@ -13,7 +13,7 @@ def call(body) {
                 steps {
                     prepareBuildEnvironment()
                     helloWorld(name: "prepareBuildEnvironment")
-                    helloWorldExternal()
+                    helloWorldExternal(name: "prepareBuildEnvironment External")
                 }
             }
             stage("Source Code Checkout") {

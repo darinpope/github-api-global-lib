@@ -1,4 +1,4 @@
 def call(Map config) {
     loadLinuxScript('hello-world.sh')
-    bat "./hello-world.sh ${config.name}"
+    sh "./hello-world.sh ${config.name}"
 }

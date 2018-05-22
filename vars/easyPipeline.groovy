@@ -13,6 +13,8 @@ def call(body) {
                 steps {
                     echo "${pipelineParams.agentLabel}"
                     echo "${pipelineParams.osConfiguration}"
+                    echo "${pipelineParams.osConfiguration.os}"
+                    echo "${pipelineParams.osConfiguration.dir}"                    
                 }
             }
             stage("Prepare Build Environment") {

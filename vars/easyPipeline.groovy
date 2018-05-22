@@ -76,6 +76,7 @@ def call(body) {
             //}         
         }
         post {
+            agent { label "${pipelineParams.agentLabel}" }
             always {
                 sendNotification()
             }

@@ -9,6 +9,12 @@ def call(body) {
             label "${pipelineParams.agentLabel}"
         }
         stages {
+            stage("echo parameters") {
+                steps {
+                    echo "${pipelineParams.agentLabel}"
+                    echo "${pipelineParams.osConfiguration}"
+                }
+            }
             stage("Prepare Build Environment") {
                 steps {
                     prepareBuildEnvironment()

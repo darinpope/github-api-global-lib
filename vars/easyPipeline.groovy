@@ -5,11 +5,10 @@ def call(body) {
     body()
 
     pipeline {
-        agent {
-            label "${pipelineParams.agentLabel}"
-        }
+        agent none
         stages {
             stage("echo parameters") {
+                agent { label "${pipelineParams.agentLabel}" }
                 steps {
                     echo "${pipelineParams.agentLabel}"
                     echo "${pipelineParams.osConfiguration}"
@@ -18,6 +17,7 @@ def call(body) {
                 }
             }
             stage("Prepare Build Environment") {
+                agent { label "${pipelineParams.agentLabel}" }
                 steps {
                     prepareBuildEnvironment()
                     helloWorld(name: "prepareBuildEnvironment")
@@ -25,11 +25,13 @@ def call(body) {
                 }
             }
             stage("Source Code Checkout") {
+                agent { label "${pipelineParams.agentLabel}" }
                 steps {
                     echo 'scc'
                 }
             }
             stage("SonarQube Scan") {
+                agent { label "${pipelineParams.agentLabel}" }
                 when {
                     branch 'master'
                 }
@@ -38,20 +40,40 @@ def call(body) {
                 }
             }
             stage("Build Application") {
+                agent { label "${pipelineParams.agentLabel}" }
                 steps {
                     echo 'build'
                 }
             }
             stage("Publish Artifacts") {
+                agent { label "${pipelineParams.agentLabel}" }
                 steps {
                     publishArtifacts(name: "publishArtifacts")
                 }
             }
             stage("Deploy Application") {
+                agent { label "${pipelineParams.agentLabel}" }
                 steps {
                     deployApplication(name: "deployApplication")
                 }
             }
+            stage("Long Running Stage"} {
+                agent { label "${pipelineParams.agentLabel}" }
+                steps {
+                    script {
+                        hook = registerWebhook()
+                    }
+                }
+            }
+            stage("Waiting for Webhook") {
+                steps {
+                    echo "Waiting for POST to ${hook.getURL()}"
+                    script {
+                        data = waitForWebhook hook
+                    }
+                    echo "Webhook called with data: ${data}"
+                }
+            }         
         }
         post {
             always {

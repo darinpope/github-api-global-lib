@@ -57,7 +57,7 @@ def call(body) {
                     deployApplication(name: "deployApplication")
                 }
             }
-            stage("Long Running Stage"} {
+            stage("Long Running Stage") {
                 agent { label "${pipelineParams.agentLabel}" }
                 steps {
                     script {

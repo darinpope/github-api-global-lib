@@ -10,6 +10,7 @@ def call(body) {
             stage("echo parameters") {
                 agent { label "${pipelineParams.agentLabel}" }
                 steps {
+                    sh "env | sort"
                     echo "${pipelineParams.agentLabel}"
                     echo "${pipelineParams.osConfiguration}"
                     echo "${pipelineParams.osConfiguration.OS_VERSION}"

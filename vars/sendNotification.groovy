@@ -1,4 +1,3 @@
-//@NonCPS
 def renderTemplate(input, binding) {
     def engine = new groovy.text.GStringTemplateEngine()
     def template = engine.createTemplate(input).make(binding)

@@ -12,14 +12,14 @@ def call(String agentLabel,body) {
                 agent { label "${agentLabel}" }
                 steps {
                     sh "env | sort"
-                    echo "${pipelineParams.agentLabel}"
+                    echo "${agentLabel}"
                     echo "${pipelineParams.osConfiguration}"
                     echo "${pipelineParams.osConfiguration.OS_VERSION}"
                     echo "${pipelineParams.osConfiguration.DIR_TYPE}"                    
                 }
             }
             stage("Prepare Build Environment") {
-                agent { label "${pipelineParams.agentLabel}" }
+                agent { label "${agentLabel}" }
                 steps {
                     prepareBuildEnvironment()
                     helloWorld(name: "prepareBuildEnvironment")
@@ -27,13 +27,13 @@ def call(String agentLabel,body) {
                 }
             }
             stage("Source Code Checkout") {
-                agent { label "${pipelineParams.agentLabel}" }
+                agent { label "${agentLabel}" }
                 steps {
                     echo 'scc'
                 }
             }
             stage("SonarQube Scan") {
-                agent { label "${pipelineParams.agentLabel}" }
+                agent { label "${agentLabel}" }
                 when {
                     branch 'master'
                 }
@@ -42,25 +42,25 @@ def call(String agentLabel,body) {
                 }
             }
             stage("Build Application") {
-                agent { label "${pipelineParams.agentLabel}" }
+                agent { label "${agentLabel}" }
                 steps {
                     echo 'build'
                 }
             }
             stage("Publish Artifacts") {
-                agent { label "${pipelineParams.agentLabel}" }
+                agent { label "${agentLabel}" }
                 steps {
                     publishArtifacts(name: "publishArtifacts")
                 }
             }
             stage("Deploy Application") {
-                agent { label "${pipelineParams.agentLabel}" }
+                agent { label "${agentLabel}" }
                 steps {
                     deployApplication(name: "deployApplication")
                 }
             }
             stage("Long Running Stage") {
-                agent { label "${pipelineParams.agentLabel}" }
+                agent { label "${agentLabel}" }
                 steps {
                     script {
                         hook = registerWebhook()

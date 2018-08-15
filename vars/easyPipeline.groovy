@@ -1,4 +1,5 @@
-def call(body) {
+def call(String agentLabel,body) {
+    
     def pipelineParams= [:]
     body.resolveStrategy = Closure.DELEGATE_FIRST
     body.delegate = pipelineParams
@@ -8,7 +9,7 @@ def call(body) {
         agent none
         stages {
             stage("echo parameters") {
-                agent { label "${pipelineParams.agentLabel}" }
+                agent { label "${agentLabel}" }
                 steps {
                     sh "env | sort"
                     echo "${pipelineParams.agentLabel}"

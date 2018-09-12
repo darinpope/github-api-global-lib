@@ -23,6 +23,9 @@ def call(body) {
                 }
             }
             stage("SonarQube Scan") {
+                when {
+                    equals expected: "toomuch", actual: sonar.sing
+                }
                 steps {
                     echo 'scan'
                 }

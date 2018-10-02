@@ -1,3 +1,3 @@
 def call(Map config) {
-  println hudson.console.ModelHyperlinkNote.encodeTo('http://example.com', 'example')
+  currentBuild.description = "Click <a href='http://yourlink'>here</a>"
 }

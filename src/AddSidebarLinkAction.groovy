@@ -2,11 +2,13 @@ public class AddSidebarLinkAction implements hudson.model.Action,java.io.Seriali
   private String displayName;
   private String iconFileName;
   private String urlName;
+  private String iconClassName;
   
-  public AddSidebarLinkAction(String displayName,String iconFileName,String urlName) {
+  public AddSidebarLinkAction(String displayName,String iconFileName,String urlName,String iconClassName) {
     this.displayName = displayName;
     this.iconFileName = iconFileName;
     this.urlName = urlName;
+    this.iconClassName = iconClassName;
   }
   
   @Override 
@@ -22,5 +24,9 @@ public class AddSidebarLinkAction implements hudson.model.Action,java.io.Seriali
   @Override 
   public String getUrlName() {
     return urlName;
+  }
+  
+  public String getIconClassName() {
+    return iconClassName;
   }
 }

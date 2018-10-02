@@ -1,5 +1,5 @@
 def call(Map config) {
-  def action = new AddSidebarLinkAction("testLinkFromDarin","star.gif","http://www.darinpope.com/",null)
+  def action = new hudson.plugins.sidebar_link.LinkAction("http://www.darinpope.com/","testLinkFromDarin","star.gif")
   //action = [
   //  displayName: "testdarin",
   //  urlName: "http://www.darinpope.com",

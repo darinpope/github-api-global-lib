@@ -59,6 +59,12 @@ def call(String agentLabel,body) {
                     deployApplication(name: "deployApplication")
                 }
             }
+            stage("Add Sidebar Link") {
+                agent { label "${agentLabel}" }
+                steps {
+                    addSidebarLink()
+                }
+            }
             //stage("Long Running Stage") {
             //    agent { label "${agentLabel}" }
             //    steps {

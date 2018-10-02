@@ -4,6 +4,6 @@ def call(Map config) {
     displayName: "testdarin",
     urlName: "http://www.darinpope.com",
     iconFileName: "foo"
-  ] as hudson.model.Action
+  ] as hudson.model.ProminentProjectAction
   currentBuild.rawBuild.addAction(action)
 }

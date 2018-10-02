@@ -3,7 +3,7 @@ def call(Map config) {
   action = [
     displayName: "testdarin",
     urlName: "http://www.darinpope.com",
-    iconClassName: "foo"
+    iconFileName: "abc.gif"
   ] as hudson.model.Action
   currentBuild.rawBuild.addAction(action)
 }

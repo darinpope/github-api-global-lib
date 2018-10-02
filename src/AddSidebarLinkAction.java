@@ -9,14 +9,17 @@ class AddSidebarLinkAction implements hudson.model.Action {
     this.urlName = urlName;
   }
   
+  @Override 
   public String getDisplayName() {
     return displayName;
   }
   
+  @Override 
   public String getIconFileName() {
     return iconFileName;
   }
   
+  @Override 
   public String getUrlName() {
     return urlName;
   }

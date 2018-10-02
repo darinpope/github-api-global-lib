@@ -1,3 +1,4 @@
 def call(Map config) {
-  currentBuild.description = "Click <a href='http://yourlink'>here</a>"
+  def action = new AddSidebarLinkAction()
+  currentBuild.rawBuild.getActions().add(action)
 }

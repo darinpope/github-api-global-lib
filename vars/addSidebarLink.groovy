@@ -3,7 +3,7 @@ def call(Map config) {
   action = [
     displayName: "testdarin",
     urlName: "http://www.darinpope.com",
-    iconFileName: "24x24"
+    iconFileName: "star.gif"
   ] as hudson.model.PermalinkProjectAction
   currentBuild.rawBuild.addAction(action)
 }

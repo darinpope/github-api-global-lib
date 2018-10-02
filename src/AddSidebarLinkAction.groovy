@@ -1,8 +1,8 @@
 public class AddSidebarLinkAction implements hudson.model.Action,java.io.Serializable {
-  private transient String displayName;
-  private transient String iconFileName;
-  private transient String urlName;
-  private transient String iconClassName;
+  private String displayName;
+  private String iconFileName;
+  private String urlName;
+  private String iconClassName;
   
   public AddSidebarLinkAction(String displayName,String iconFileName,String urlName,String iconClassName) {
     this.displayName = displayName;

@@ -1,4 +1,3 @@
-import 
 class AddSidebarLinkAction implements hudson.model.Action {
   private String displayName;
   private String iconFileName;

@@ -59,23 +59,23 @@ def call(String agentLabel,body) {
                     deployApplication(name: "deployApplication")
                 }
             }
-            stage("Long Running Stage") {
-                agent { label "${agentLabel}" }
-                steps {
-                    script {
-                        hook = registerWebhook()
-                    }
-                }
-            }
-            stage("Waiting for Webhook") {
-                steps {
-                    echo "Waiting for POST to ${hook.getURL()}"
-                    script {
-                        data = waitForWebhook hook
-                    }
-                    echo "Webhook called with data: ${data}"
-                }
-            }         
+            //stage("Long Running Stage") {
+            //    agent { label "${agentLabel}" }
+            //    steps {
+            //        script {
+            //            hook = registerWebhook()
+            //        }
+            //    }
+            //}
+            //stage("Waiting for Webhook") {
+            //    steps {
+            //        echo "Waiting for POST to ${hook.getURL()}"
+            //        script {
+            //            data = waitForWebhook hook
+            //        }
+            //        echo "Webhook called with data: ${data}"
+            //    }
+            //}         
         }
         //post {
         //    always {

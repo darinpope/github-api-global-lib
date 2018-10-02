@@ -1,4 +1,4 @@
-class AddSidebarLinkAction implements hudson.model.Action,java.io.Serializable {
+public class AddSidebarLinkAction implements hudson.model.Action,java.io.Serializable {
   private String displayName;
   private String iconFileName;
   private String urlName;

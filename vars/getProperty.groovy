@@ -1,9 +1,4 @@
 def call(Map config) {
-    //def props = readProperties(file: "${config.file}")
-    Properties props = new Properties()
-    File propertiesFile = new File("${config.file}")
-    propertiesFile.withInputStream {
-        props.load(it)
-    }
+    def props = readProperties(file: "${config.file}")
     return props["${config.key}"]
 }

@@ -5,11 +5,18 @@ def call(body) {
     body.delegate = pipelineParams
     body()
 
-    pipeline {
-        environment {
-            AGENT_LABEL = getProperty(name: "agentLabel", file:"javaMaven.properties")
+    // this found at https://stackoverflow.com/a/49132694
+    def agentLabel = null
+
+    node() {
+        stage('Checkout and set agent'){
+            checkout scm
+            agentLabel = getProperty("agentLabel","javaMaven.properties")
         }
-        agent { label "$AGENT_LABEL"}
+    }
+
+    pipeline {
+        agent { label "$agentLabel"}
         stages {
             stage("echo parameters") {
                 agent { label "${agentLabel}" }
@@ -22,7 +29,6 @@ def call(body) {
                 }
             }
             stage("Prepare Build Environment") {
-                agent { label "${agentLabel}" }
                 steps {
                     prepareBuildEnvironment()
                     helloWorld(name: "prepareBuildEnvironment")
@@ -30,13 +36,11 @@ def call(body) {
                 }
             }
             stage("Source Code Checkout") {
-                agent { label "${agentLabel}" }
                 steps {
                     echo 'scc'
                 }
             }
             stage("SonarQube Scan") {
-                agent { label "${agentLabel}" }
                 when {
                     branch 'master'
                 }
@@ -45,49 +49,19 @@ def call(body) {
                 }
             }
             stage("Build Application") {
-                agent { label "${agentLabel}" }
                 steps {
                     echo 'build'
                 }
             }
             stage("Publish Artifacts") {
-                agent { label "${agentLabel}" }
                 steps {
                     publishArtifacts(name: "publishArtifacts")
                 }
             }
             stage("Deploy Application") {
-                agent { label "${agentLabel}" }
                 steps {
                     deployApplication(name: "deployApplication")
                 }
-            }
-            //stage("Long Running Stage") {
-            //    agent { label "${agentLabel}" }
-            //    steps {
-            //        script {
-            //            hook = registerWebhook()
-            //        }
-            //    }
-            //}
-            //stage("Waiting for Webhook") {
-            //    steps {
-            //        echo "Waiting for POST to ${hook.getURL()}"
-            //        script {
-            //            data = waitForWebhook hook
-            //        }
-            //        echo "Webhook called with data: ${data}"
-            //    }
-            //}
-        }
-        //post {
-        //    always {
-        //        sendNotification()
-        //    }
-        //}
-        post {
-            always {
-                addSidebarLink()
             }
         }
     }

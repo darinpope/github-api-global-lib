@@ -5,10 +5,11 @@ def call(body) {
     body.delegate = pipelineParams
     body()
 
-    def agentLabel = getProperty(name: "agentLabel", file:"javaMaven.properties")
-
     pipeline {
-        agent none
+        environment {
+            AGENT_LABEL = getProperty(name: "agentLabel", file:"javaMaven.properties")
+        }
+        agent { label "$AGENT_LABEL"}
         stages {
             stage("echo parameters") {
                 agent { label "${agentLabel}" }

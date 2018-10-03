@@ -12,6 +12,7 @@ def call(body) {
         stage('Checkout and set agent'){
             checkout scm
             agentLabel = getProperty(key:"agentLabel",file:"javaMaven.properties")
+            echo "found the agentLabel value of: ${agentLabel}"
         }
     }
 

@@ -5,7 +5,7 @@ def call(body) {
     body.delegate = pipelineParams
     body()
 
-    def agentLabel = getProperty("agentLabel","javaMaven.properties")
+    def agentLabel = getProperty(name: "agentLabel", file:"javaMaven.properties")
 
     pipeline {
         agent none

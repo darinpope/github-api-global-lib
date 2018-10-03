@@ -11,7 +11,7 @@ def call(body) {
     node('shared') {
         stage('Checkout and set agent'){
             checkout scm
-            agentLabel = getProperty("agentLabel","javaMaven.properties")
+            agentLabel = getProperty(key:"agentLabel",file:"javaMaven.properties")
         }
     }
 

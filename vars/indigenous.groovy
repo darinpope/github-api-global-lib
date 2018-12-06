@@ -156,8 +156,10 @@ def call(body) {
                 }
             }
             stage('Publish deploy event') {
+                agent { label "linux" }
                 when {
                     branch 'master'
+                    beforeAgent true
                 }
                 steps {
                     publishEvent simpleEvent('indigenousDeploy')

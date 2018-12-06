@@ -24,32 +24,7 @@ def call(body) {
                         command:
                             - cat
                         tty: true
-                      - name: sonarqube
-                        image: gcc:8.1.0
-                        command:
-                            - cat
-                        tty: true
-                      - name: xray
-                        image: gcc:8.1.0
-                        command:
-                            - cat
-                        tty: true
-                      - name: artifactory 
-                        image: gcc:8.1.0
-                        command:
-                            - cat
-                        tty: true
-                      - name: deployer 
-                        image: gcc:8.1.0
-                        command:
-                            - cat
-                        tty: true
-                      - name: guismoketest 
-                        image: gcc:8.1.0
-                        command:
-                            - cat
-                        tty: true
-                      - name: servicesmoketest 
+                      - name: make
                         image: gcc:8.1.0
                         command:
                             - cat
@@ -89,14 +64,14 @@ def call(body) {
                     }
                 }
                 steps {
-                    container("sonarqube") {
+                    container("make") {
                         sh "echo SonarQube analysis"
                     }
                 }
             }
             stage("Upload to Binary Repository") {
                 steps {
-                    container("artifactory") {
+                    container("make") {
                         sh "echo Upload to Binary Repository"
                     }
                 }
@@ -104,7 +79,7 @@ def call(body) {
 
             stage("Xray Scan") {
                 steps {
-                    container("xray") {
+                    container("make") {
                         sh "echo Xray Scan"
                     }
                 }
@@ -136,7 +111,7 @@ def call(body) {
                                     }
                                 }
                                 steps {
-                                    container("deployer") {
+                                    container("make") {
                                         sh "echo Deploy to Pre-Production"
                                     }
                                 }
@@ -165,7 +140,7 @@ def call(body) {
                                     }
                                 }
                                 steps {
-                                    container("deployer") {
+                                    container("make") {
                                         sh "echo Deploy to Dev"
                                     }
                                 }
@@ -189,7 +164,7 @@ def call(body) {
                             }
                             stage("Run GUI Smoketest") {
                                 steps {
-                                    container("guismoketest") {
+                                    container("make") {
                                         sh "echo Run GUI Smoketest"
                                     }
                                 }
@@ -210,7 +185,7 @@ def call(body) {
                             }
                             stage("Run Service Smoketest") {
                                 steps {
-                                    container("servicesmoketest") {
+                                    container("make") {
                                         sh "echo Run Service Smoketest"
                                     }
                                 }

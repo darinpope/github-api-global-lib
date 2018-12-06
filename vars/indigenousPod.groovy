@@ -118,11 +118,13 @@ def call(body) {
                     stage("Pre-Production") {
                         stages {
                             stage("Pre-Production checkpoint") {
+                                agent none
                                 when {
                                     anyOf {
                                         branch 'master'
                                         branch 'pod-test'
                                     }
+                                    beforeAgent true
                                 }
                                 steps {
                                     checkpoint "deployToPreProduction"
@@ -147,11 +149,13 @@ def call(body) {
                     stage("Dev") {
                         stages {
                             stage("Dev checkpoint") {
+                                agent none
                                 when {
                                     anyOf {
                                         branch 'master'
                                         branch 'pod-test'
                                     }
+                                    beforeAgent true
                                 }
                                 steps {
                                     checkpoint "deployToDev"
@@ -183,6 +187,7 @@ def call(body) {
                     stage("GUI") {
                         stages {
                             stage("Checkpoint before GUI") {
+                                agent none
                                 steps {
                                     checkpoint "Run GUI Smoketest"
                                 }
@@ -204,6 +209,7 @@ def call(body) {
                     stage("Service") {
                         stages {
                             stage("Checkpoint before Service") {
+                                agent none
                                 steps {
                                     checkpoint "Run Service Smoketest"
                                 }

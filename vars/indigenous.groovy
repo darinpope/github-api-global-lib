@@ -51,7 +51,7 @@ def call(body) {
 
             stage("Deploy") {
                 when {
-                    equals expected: 'y', actual: ${autoDeploy}
+                    equals expected: "y", actual: "${autoDeploy}"
                 }
                 parallel {
                     stage("Deploy to Pre-Production") {
@@ -78,7 +78,7 @@ def call(body) {
 
             stage("Smoketests") {
                 when {
-                    equals expected: 'y', actual: ${runSmokeTests}
+                    equals expected: "y", actual: "${runSmokeTests}"
                 }
                 parallel {
                     stage("GUI") {

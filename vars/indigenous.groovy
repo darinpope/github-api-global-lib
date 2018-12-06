@@ -121,7 +121,12 @@ def call(body) {
                     }
                 }
             }
-
+            stage('Publish deploy event') {
+                when { branch 'master' }
+                steps {
+                    publishEvent simpleEvent('indigenousDeploy')
+                }
+            }
         }
         post {
             success {

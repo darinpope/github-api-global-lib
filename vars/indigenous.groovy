@@ -10,12 +10,13 @@ def call(body) {
     def notifyEmail = "${pipelineParams.notifyEmail}"
 
     pipeline {
-        agent { label "linux" }
+        agent none
         options {
             buildDiscarder(logRotator(numToKeepStr: '5'))
         }
         stages {
             stage("Prepare Build Environment") {
+                agent { label "linux" }
                 steps {
                     sh """
                         echo My branch is: ${BRANCH_NAME}
@@ -24,26 +25,31 @@ def call(body) {
                 }
             }
             stage("Build & Unit Tests") {
+                agent { label "linux" }
                 steps {
                     sh "echo build and unit tests"
                 }
             }
 
             stage('SonarQube analysis') {
+                agent { label "linux" }
                 when {
                     branch 'master'
+                    beforeAgent true
                 }
                 steps {
                     sh "echo SonarQube analysis"
                 }
             }
             stage("Upload to Binary Repository") {
+                agent { label "linux" }
                 steps {
                     sh "echo Upload to Binary Repository"
                 }
             }
 
             stage("Xray Scan") {
+                agent { label "linux" }
                 steps {
                     sh "echo Xray Scan"
                 }
@@ -57,7 +63,6 @@ def call(body) {
                     stage("Pre-Production") {
                         stages {
                             stage("Pre-Production checkpoint") {
-                                agent none
                                 when {
                                     branch 'master'
                                 }
@@ -66,8 +71,10 @@ def call(body) {
                                 }
                             }
                             stage("Deploy to Pre-Production") {
+                                agent { label "linux" }
                                 when {
                                     branch 'master'
+                                    beforeAgent true
                                 }
                                 steps {
                                     sh "echo Deploy to Pre-Production"
@@ -79,7 +86,6 @@ def call(body) {
                     stage("Dev") {
                         stages {
                             stage("Dev checkpoint") {
-                                agent none
                                 when {
                                     branch 'master'
                                 }
@@ -88,8 +94,10 @@ def call(body) {
                                 }
                             }
                             stage("Deploy to Dev") {
+                                agent { label "linux" }
                                 when {
                                     branch 'master'
+                                    beforeAgent true
                                 }
                                 steps {
                                     sh "echo Deploy to Dev"
@@ -113,6 +121,7 @@ def call(body) {
                                 }
                             }
                             stage("Run GUI Smoketest") {
+                                agent { label "linux" }
                                 steps {
                                     sh "echo Run GUI Smoketest"
                                 }
@@ -132,6 +141,7 @@ def call(body) {
                                 }
                             }
                             stage("Run Service Smoketest") {
+                                agent { label "linux" }
                                 steps {
                                     sh "echo Run Service Smoketest"
                                 }

@@ -54,23 +54,47 @@ def call(body) {
                     equals expected: "y", actual: "${autoDeploy}"
                 }
                 parallel {
-                    stage("Deploy to Pre-Production") {
-                        when {
-                            branch 'master'
-                        }
-                        steps {
-                            checkpoint "deployToPreProduction"
-                            sh "echo Deploy to Pre-Production"
+                    stage("Pre-Production") {
+                        stages {
+                            stage("Pre-Production checkpoint") {
+                                agent none
+                                when {
+                                    branch 'master'
+                                }
+                                steps {
+                                    checkpoint "deployToPreProduction"
+                                }
+                            }
+                            stage("Deploy to Pre-Production") {
+                                when {
+                                    branch 'master'
+                                }
+                                steps {
+                                    sh "echo Deploy to Pre-Production"
+                                }
+                            }
                         }
                     }
 
-                    stage("Deploy to Dev") {
-                        when {
-                            not { branch 'master' }
-                        }
-                        steps {
-                            checkpoint "deployToDev"
-                            sh "echo Deploy to Dev"
+                    stage("Dev") {
+                        stages {
+                            stage("Dev checkpoint") {
+                                agent none
+                                when {
+                                    branch 'master'
+                                }
+                                steps {
+                                    checkpoint "deployToDev"
+                                }
+                            }
+                            stage("Deploy to Dev") {
+                                when {
+                                    branch 'master'
+                                }
+                                steps {
+                                    sh "echo Deploy to Dev"
+                                }
+                            }
                         }
                     }
                 }

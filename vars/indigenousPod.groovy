@@ -20,7 +20,7 @@ def call(body) {
                     spec:
                       containers:
                       - name: maven
-                        image: 3-ibmjava
+                        image: maven:3-ibmjava
                         command:
                             - cat
                         tty: true

@@ -16,6 +16,7 @@ def call(body) {
         }
         stages {
             stage("Prepare Build Environment") {
+                agent {label "linux"}
                 steps {
                     sh """
                         echo My branch is: ${BRANCH_NAME}
@@ -24,26 +25,31 @@ def call(body) {
                 }
             }
             stage("Build & Unit Tests") {
+                agent {label "linux"}
                 steps {
                     sh "echo build and unit tests"
                 }
             }
 
             stage('SonarQube analysis') {
+                agent {label "linux"}
                 when {
                     branch 'master'
+                    beforeAgent true
                 }
                 steps {
                     sh "echo SonarQube analysis"
                 }
             }
             stage("Upload to Binary Repository") {
+                agent {label "linux"}
                 steps {
                     sh "echo Upload to Binary Repository"
                 }
             }
 
             stage("Xray Scan") {
+                agent {label "linux"}
                 steps {
                     sh "echo Xray Scan"
                 }
@@ -55,6 +61,7 @@ def call(body) {
                 }
                 parallel {
                     stage("Deploy to Pre-Production") {
+                        agent {label "linux"}
                         when {
                             branch 'master'
                         }
@@ -65,6 +72,7 @@ def call(body) {
                     }
 
                     stage("Deploy to Dev") {
+                        agent {label "linux"}
                         when {
                             not { branch 'master' }
                         }
@@ -89,6 +97,7 @@ def call(body) {
                                 }
                             }
                             stage("Run GUI Smoketest") {
+                                agent {label "linux"}
                                 steps {
                                     sh "echo Run GUI Smoketest"
                                 }
@@ -108,6 +117,7 @@ def call(body) {
                                 }
                             }
                             stage("Run Service Smoketest") {
+                                agent {label "linux"}
                                 steps {
                                     sh "echo Run Service Smoketest"
                                 }
@@ -122,7 +132,11 @@ def call(body) {
                 }
             }
             stage('Publish deploy event') {
-                when { branch 'master' }
+                agent {label "linux"}
+                when {
+                    branch 'master'
+                    beforeAgent true
+                }
                 steps {
                     publishEvent simpleEvent('indigenousDeploy')
                 }

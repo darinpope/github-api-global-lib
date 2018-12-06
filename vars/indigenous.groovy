@@ -14,6 +14,7 @@ def call(body) {
         options {
             buildDiscarder(logRotator(numToKeepStr: '5'))
             skipDefaultCheckout()
+            durabilityHint('PERFORMANCE_OPTIMIZED')
         }
         stages {
             stage("Prepare Build Environment") {

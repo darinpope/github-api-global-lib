@@ -94,7 +94,7 @@ def call(body) {
                                 }
                                 post {
                                     failure {
-                                        sendEmail(${notifyEmail})
+                                        sendIndigenousEmail(to: "${notifyEmail}")
                                     }
                                 }
                             }

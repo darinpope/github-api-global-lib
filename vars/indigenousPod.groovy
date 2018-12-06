@@ -83,7 +83,10 @@ def call(body) {
 
             stage('SonarQube analysis') {
                 when {
-                    branch 'master'
+                    anyOf {
+                        branch 'master'
+                        branch 'pod-test'
+                    }
                 }
                 steps {
                     container("sonarqube") {
@@ -116,7 +119,10 @@ def call(body) {
                         stages {
                             stage("Pre-Production checkpoint") {
                                 when {
-                                    branch 'master'
+                                    anyOf {
+                                        branch 'master'
+                                        branch 'pod-test'
+                                    }
                                 }
                                 steps {
                                     checkpoint "deployToPreProduction"
@@ -124,7 +130,10 @@ def call(body) {
                             }
                             stage("Deploy to Pre-Production") {
                                 when {
-                                    branch 'master'
+                                    anyOf {
+                                        branch 'master'
+                                        branch 'pod-test'
+                                    }
                                 }
                                 steps {
                                     container("deployer") {
@@ -139,7 +148,10 @@ def call(body) {
                         stages {
                             stage("Dev checkpoint") {
                                 when {
-                                    branch 'master'
+                                    anyOf {
+                                        branch 'master'
+                                        branch 'pod-test'
+                                    }
                                 }
                                 steps {
                                     checkpoint "deployToDev"
@@ -147,7 +159,10 @@ def call(body) {
                             }
                             stage("Deploy to Dev") {
                                 when {
-                                    branch 'master'
+                                    anyOf {
+                                        branch 'master'
+                                        branch 'pod-test'
+                                    }
                                 }
                                 steps {
                                     container("deployer") {
@@ -211,7 +226,10 @@ def call(body) {
             }
             stage('Publish deploy event') {
                 when {
-                    branch 'master'
+                    anyOf {
+                        branch 'master'
+                        branch 'pod-test'
+                    }
                 }
                 steps {
                     publishEvent simpleEvent('indigenousDeploy')

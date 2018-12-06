@@ -12,15 +12,13 @@ def call(body) {
     pipeline {
         agent {
             kubernetes {
-                label 'mypod'
+                label 'indigenous-agent'
+                defaultContainer 'jnlp'
                 yaml """
                     apiVersion: v1
                     kind: Pod
                     spec:
                       containers:
-                      - name: jnlp
-                        image: 'jenkins/jnlp-slave:3.10-1-alpine'
-                        args: ['\$(JENKINS_SECRET)', '\$(JENKINS_NAME)']
                       - name: maven
                         image: 3-ibmjava
                         command:

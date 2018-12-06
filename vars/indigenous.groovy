@@ -13,6 +13,7 @@ def call(body) {
         agent none
         options {
             buildDiscarder(logRotator(numToKeepStr: '5'))
+            skipDefaultCheckout()
         }
         stages {
             stage("Prepare Build Environment") {
@@ -24,34 +25,35 @@ def call(body) {
                     """
                 }
             }
-            stage("Build & Unit Tests") {
-                agent { label "linux" }
-                steps {
-                    sh "echo build and unit tests"
-                }
-            }
+            stage("big chunk") {
+                agent {label "linux"}
+                stages {
+                    stage("Build & Unit Tests") {
+                        steps {
+                            checkout scm
+                            sh "./mvnw clean compile"
+                        }
+                    }
 
-            stage('SonarQube analysis') {
-                agent { label "linux" }
-                when {
-                    branch 'master'
-                    beforeAgent true
-                }
-                steps {
-                    sh "echo SonarQube analysis"
-                }
-            }
-            stage("Upload to Binary Repository") {
-                agent { label "linux" }
-                steps {
-                    sh "echo Upload to Binary Repository"
-                }
-            }
+                    stage('SonarQube analysis') {
+                        when {
+                            branch 'master'
+                        }
+                        steps {
+                            sh "echo SonarQube analysis"
+                        }
+                    }
+                    stage("Upload to Binary Repository") {
+                        steps {
+                            sh "echo Upload to Binary Repository"
+                        }
+                    }
 
-            stage("Xray Scan") {
-                agent { label "linux" }
-                steps {
-                    sh "echo Xray Scan"
+                    stage("Xray Scan") {
+                        steps {
+                            sh "echo Xray Scan"
+                        }
+                    }
                 }
             }
 

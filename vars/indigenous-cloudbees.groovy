@@ -13,7 +13,6 @@ def call(body) {
         agent none
         options {
             buildDiscarder(logRotator(numToKeepStr: '5'))
-            preserveStashes(buildCount: 5)
             skipDefaultCheckout()
             durabilityHint('PERFORMANCE_OPTIMIZED')
         }
@@ -33,7 +32,7 @@ def call(body) {
                     stage("Build & Unit Tests") {
                         steps {
                             checkout scm
-                            sh "./mvnw clean test"
+                            sh "./mvnw clean compile"
                         }
                     }
 
@@ -43,12 +42,6 @@ def call(body) {
                         }
                         steps {
                             sh "echo SonarQube analysis"
-                        }
-                    }
-                    stage("Install") {
-                        steps {
-                            sh "./mvnw install"
-                            stash name: "jar-is-built", includes: "target/*.jar"
                         }
                     }
                     stage("Upload to Binary Repository") {
@@ -72,6 +65,14 @@ def call(body) {
                 parallel {
                     stage("Pre-Production") {
                         stages {
+                            stage("Pre-Production checkpoint") {
+                                when {
+                                    branch 'master'
+                                }
+                                steps {
+                                    checkpoint "deployToPreProduction"
+                                }
+                            }
                             stage("Deploy to Pre-Production") {
                                 agent { label "linux" }
                                 when {
@@ -87,6 +88,14 @@ def call(body) {
 
                     stage("Dev") {
                         stages {
+                            stage("Dev checkpoint") {
+                                when {
+                                    branch 'master'
+                                }
+                                steps {
+                                    checkpoint "deployToDev"
+                                }
+                            }
                             stage("Deploy to Dev") {
                                 agent { label "linux" }
                                 when {
@@ -109,6 +118,11 @@ def call(body) {
                 parallel {
                     stage("GUI") {
                         stages {
+                            stage("Checkpoint before GUI") {
+                                steps {
+                                    checkpoint "Run GUI Smoketest"
+                                }
+                            }
                             stage("Run GUI Smoketest") {
                                 agent { label "linux" }
                                 steps {
@@ -124,6 +138,11 @@ def call(body) {
                     }
                     stage("Service") {
                         stages {
+                            stage("Checkpoint before Service") {
+                                steps {
+                                    checkpoint "Run Service Smoketest"
+                                }
+                            }
                             stage("Run Service Smoketest") {
                                 agent { label "linux" }
                                 steps {
@@ -137,6 +156,16 @@ def call(body) {
                             }
                         }
                     }
+                }
+            }
+            stage('Publish deploy event') {
+                agent { label "linux" }
+                when {
+                    branch 'master'
+                    beforeAgent true
+                }
+                steps {
+                    publishEvent simpleEvent('indigenousDeploy')
                 }
             }
         }

@@ -1,13 +1,13 @@
 {
-    "fields": {
-       "project":
+    \"fields\": {
+       \"project\":
        {
-          "key": "$key"
+          \"key\": \"$key\"
        },
-       "summary": "$summary",
-       "description": "$description",
-       "issuetype": {
-          "name": "$issueTypeName"
+       \"summary\": \"$summary\",
+       \"description\": \"$description\",
+       \"issuetype\": {
+          \"name\": \"$issueTypeName\"
        }
    }
 }

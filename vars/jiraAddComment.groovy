@@ -7,7 +7,7 @@ def renderTemplate(input, binding) {
 def call(Map config=[:]) {
   def rawBody = libraryResource 'com/planetpope/api/jira/addComment.json'
   def binding = [
-    applicationName: ${config.body}
+    body: ${config.body}
   ]
   def render = renderTemplate(rawBody,binding)
   def jiraServer = "https://jiraserver"

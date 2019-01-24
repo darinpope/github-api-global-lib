@@ -8,6 +8,7 @@ def call(Map config=[:]) {
   def issueId = getIssueIdFromCommitMessage()
   echo "issueId = ${issueId}"
   if( issueId?.trim() ) {
+    echo "bailing out"
     return
   }
   def rawBody = libraryResource 'com/planetpope/api/jira/addComment.json'

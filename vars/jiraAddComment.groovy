@@ -6,6 +6,7 @@ def renderTemplate(input, binding) {
 
 def call(Map config=[:]) {
   def issueId = getIssueIdFromCommitMessage()
+  echo "issueId = ${issueId}"
   if( issueId?.trim() ) {
     return
   }

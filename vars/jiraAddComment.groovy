@@ -6,9 +6,9 @@ def renderTemplate(input, binding) {
 
 def call(Map config=[:]) {
   def issueId = getIssueIdFromCommitMessage()
-  echo "issueId = ${issueId}"
+  //echo "issueId = ${issueId}"
   if( !issueId?.trim() ) {
-    echo "bailing out"
+    //echo "bailing out"
     return
   }
   def rawBody = libraryResource 'com/planetpope/api/jira/addComment.json'

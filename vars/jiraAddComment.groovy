@@ -7,7 +7,7 @@ def renderTemplate(input, binding) {
 def call(Map config=[:]) {
   def issueId = getIssueIdFromCommitMessage()
   echo "issueId = ${issueId}"
-  if( issueId?.trim() ) {
+  if( !issueId?.trim() ) {
     echo "bailing out"
     return
   }

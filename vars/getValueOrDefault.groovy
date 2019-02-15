@@ -1,4 +1,4 @@
-def call(String actualValue,String defaultValue) {  
+def call(def actualValue,def defaultValue) {  
     boolean containsData = (actualValue?.trim()) as boolean
     if (containsData) {
         echo "containsData = ***" + actualValue?.trim() + "***"

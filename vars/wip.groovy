@@ -13,6 +13,6 @@ def call(body) {
     def runSmokeTests = getValueOrDefault("${pipelineParams.runSmokeTests}","n")
     echo "${runSmokeTests}"
 
-    def notifyEmail = "${pipelineParams.notifyEmail}"
+    def notifyEmail = getValueOrDefault("${pipelineParams.notifyEmail}","a@a.com")
     echo "${notifyEmail}"
 }

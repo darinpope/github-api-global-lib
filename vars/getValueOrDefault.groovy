@@ -5,7 +5,6 @@ def call(String actualValue,String defaultValue) {
     }
     boolean containsData = (trimmedValue) as boolean
     if (containsData) {
-        echo "containsData = ***" + trimmedValue + "***"
         return trimmedValue
     }
     return defaultValue?.trim()

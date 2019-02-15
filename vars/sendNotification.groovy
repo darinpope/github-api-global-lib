@@ -1,9 +1,3 @@
-def renderTemplate(input, binding) {
-    def engine = new groovy.text.GStringTemplateEngine()
-    def template = engine.createTemplate(input).make(binding)
-    return template.toString()
-}
-
 def call(Map config) {
     echo 'inside sendNotification'
     def rawBody = libraryResource 'com/planetpope/emailtemplate/build-results.html'

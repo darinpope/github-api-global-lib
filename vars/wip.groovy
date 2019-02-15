@@ -5,6 +5,8 @@ def call(body) {
     body.delegate = pipelineParams
     body()
 
+    echo "${pipelineParams}"
+    
     def autoDeploy = getValueOrDefault("${pipelineParams.autoDeploy}","n")
     def runSmokeTests = getValueOrDefault("${pipelineParams.runSmokeTests}","n")
     def notifyEmail = "${pipelineParams.notifyEmail}"

@@ -1,5 +1,6 @@
 def call(String actualValue,String defaultValue) {  
-    if (actualValue != null || actualValue?.trim() != null) {
+    boolean containsData = (actualValue?.trim())
+    if (containsData) {
         return actualValue?.trim()
     }
     return defaultValue?.trim()

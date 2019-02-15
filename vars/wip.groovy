@@ -7,8 +7,8 @@ def call(body) {
 
     echo "${pipelineParams}"
     
-    def autoDeploy = getValueOrDefault("${pipelineParams.autoDeploy}","n")
-    def runSmokeTests = getValueOrDefault("${pipelineParams.runSmokeTests}","n")
+    def autoDeploy = getValueOrDefault(${pipelineParams.autoDeploy},"n")
+    def runSmokeTests = getValueOrDefault(${pipelineParams.runSmokeTests},"n")
     def notifyEmail = "${pipelineParams.notifyEmail}"
 
     echo "${autoDeploy}"

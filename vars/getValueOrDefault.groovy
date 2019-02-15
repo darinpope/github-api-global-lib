@@ -1,9 +1,4 @@
-def call(String actualValue,String defaultValue) {
-    echo "actualValue = " + actualValue
-    echo "defaultValue = " + defaultValue
-    
-    echo String.valueOf(!(actualValue?.trim()))
-    
+def call(String actualValue,String defaultValue) {  
     if (!(actualValue?.trim())) {
         return actualValue?.trim()
     }

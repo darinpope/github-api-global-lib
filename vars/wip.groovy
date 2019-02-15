@@ -16,5 +16,14 @@ def call(body) {
     def notifyEmail = getValueOrDefault("${pipelineParams.notifyEmail}","a@a.com")
     echo "notifyEmail = ${notifyEmail}"
     
-    sendNotification()
+    pipeline {
+        agent any
+        stages {
+            stage("test") {
+                steps {
+                    sendNotification()
+                }
+            }
+        }
+    }
 }

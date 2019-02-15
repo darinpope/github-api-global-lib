@@ -4,8 +4,8 @@ def call(String actualValue,String defaultValue) {
     
     echo String.valueOf(actualValue)
     
-    if (actualValue) {
-        return actualValue?.trim()
+    if (!actualValue) {
+        return defaultValue?.trim()
     }
-    return defaultValue?.trim()
+    return actualValue?.trim()
 }

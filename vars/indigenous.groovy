@@ -141,7 +141,7 @@ def call(body) {
             }
         }
         post {
-            success {
+            always {
                 sendIndigenousEmail(to: "${notifyEmail}")
             }
         }

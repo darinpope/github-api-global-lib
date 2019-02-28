@@ -1,4 +1,4 @@
-def call() {
+def call(Map config=[:]) {
   def application
   def version
   def event = currentBuild?.getBuildCauses()[0]?.event?.event?.toString()

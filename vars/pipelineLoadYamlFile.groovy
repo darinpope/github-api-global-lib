@@ -22,8 +22,7 @@ def call(body) {
                 steps {
                     container("maven") {
                         sh """
-                            echo My branch is: ${BRANCH_NAME}
-                            echo My build is: ${BUILD_NUMBER}
+                            mvn --version
                         """
                     }
                 }

@@ -53,7 +53,7 @@ spec:
           not {
             allOf {
               expression { return getPropValue(key:"rtiEnable") }
-              fileExists(getPropValue(key:"rtiFileList"))
+              expression { return fileExists(getPropValue(key:"rtiFileList")) }
             }
           }
         }

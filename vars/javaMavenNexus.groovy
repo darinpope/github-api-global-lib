@@ -38,6 +38,7 @@ spec:
     }
     options {
       disableConcurrentBuilds()
+      buildDiscarder(logRotator(numToKeepStr: '1'))
     }
     stages {
       stage("Initialize") {

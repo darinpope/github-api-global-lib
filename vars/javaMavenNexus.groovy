@@ -10,7 +10,7 @@ def call(body) {
     stage('Read parameters from javaMavenNexus'){
       checkout scm
       def d = [
-        mavenImage: maven:3.6.2-jdk-8,
+        mavenImage: maven\:3.6.2-jdk-8,
         rtiEnable: false
       ]
       props = readProperties(defaults: d, file: 'javaMavenNexus.properties')

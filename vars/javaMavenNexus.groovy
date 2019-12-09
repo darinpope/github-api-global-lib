@@ -70,7 +70,7 @@ spec:
       }
       stage("Pre-Check: Version and Branch") {
         when {
-          expression { return props["versionPrecheck"]) }
+          expression { return props["versionPrecheck"] }
           not {
             branch "release"
           }

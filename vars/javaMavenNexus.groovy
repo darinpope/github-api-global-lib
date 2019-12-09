@@ -74,6 +74,23 @@ spec:
           error(message:"*** can't do this ***")
         }
       }
+      stage("Build") {
+        stages {
+          stage("Build") {
+            steps {
+              sh "mvn clean"
+            }
+          }
+          stage("RTI") {
+            when {
+              expression { return getPropValue("rtiEnable",props) }
+            }
+            steps {
+              sh "echo rti"
+            }
+          }
+        }
+      }
     }
   }
 

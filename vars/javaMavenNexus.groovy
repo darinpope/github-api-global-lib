@@ -43,7 +43,7 @@ spec:
         steps {
           container("maven") {
             sh """
-              env
+              env | sort
               mvn -v
               java -version
             """
@@ -55,12 +55,13 @@ spec:
           not {
             allOf {
               expression { return getPropValue("rtiEnable",props) }
+              expression { return getPropValue("rtiFileList",props) != null }
               expression { return fileExists(getPropValue("rtiFileList",props)) }
             }
           }
         }
         steps {
-          error(message:"*** LIST OF FILES FOR RTI NOT FOUND. Expecting file ${getPropValue("rtiFileList",props)} ***")
+          error(message:"*** Expecting file ${getPropValue("rtiFileList",props)} ***")
         }
       }
     }

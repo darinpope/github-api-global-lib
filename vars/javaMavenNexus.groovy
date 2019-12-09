@@ -103,7 +103,7 @@ spec:
               container("buildah") {
                 sh """
                   buildah version
-                  buildah bud --help
+                  buildah bud -t foo:bar .
                   buildah tag --help
                   buildah push --help
                 """

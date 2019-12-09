@@ -104,6 +104,7 @@ spec:
                 sh """
                   buildah version
                   buildah bud --help
+                  buildah push --help
                 """
               }
             }

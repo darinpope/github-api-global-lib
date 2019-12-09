@@ -28,7 +28,7 @@ kind: Pod
 spec:
   containers:
   - name: maven
-    image: ${getPropValue(key:"mavenImage")}
+    image: ${getPropValue("mavenImage",props)}
     command:
     - cat
     tty: true
@@ -52,13 +52,13 @@ spec:
         when {
           not {
             allOf {
-              expression { return getPropValue(key:"rtiEnable") }
-              expression { return fileExists(getPropValue(key:"rtiFileList")) }
+              expression { return getPropValue("rtiEnable",props) }
+              expression { return fileExists(getPropValue("rtiFileList",props)) }
             }
           }
         }
         steps {
-          error(message:"*** LIST OF FILES FOR RTI NOT FOUND. Expecting file ${getPropValue(key:"rtiFileList")} ***")
+          error(message:"*** LIST OF FILES FOR RTI NOT FOUND. Expecting file ${getPropValue("rtiFileList",props)} ***")
         }
       }
     }

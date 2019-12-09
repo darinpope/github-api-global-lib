@@ -1,3 +1,3 @@
-def call(Map config=[:]) {
-  return currentBuild.props["${config.key}"]
+def call(String key,Map config=[:]) {
+  return config[key]
 }

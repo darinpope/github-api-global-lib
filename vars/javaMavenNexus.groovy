@@ -6,6 +6,7 @@ def call(body) {
       checkout scm
       def d = [
         mavenImage: "maven:3.6.2-jdk-8",
+        buildahImage: "quay.io/buildah/stable:v1.11.6"
         rtiEnable: false,
         versionPrecheck: false,
         deployJobEnable: false,
@@ -30,6 +31,11 @@ spec:
   containers:
   - name: maven
     image: ${props["mavenImage"]}
+    command:
+    - cat
+    tty: true
+  - name: buildah
+    image: ${props["buildahImage"]}
     command:
     - cat
     tty: true
@@ -90,6 +96,13 @@ spec:
             }
             steps {
               sh "echo rti"
+            }
+          }
+          stage("Buildah") {
+            steps {
+              container("buildah") {
+                sh "buildah version"
+              }
             }
           }
         }

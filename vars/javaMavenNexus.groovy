@@ -78,7 +78,9 @@ spec:
         stages {
           stage("Build") {
             steps {
-              sh "mvn clean"
+              container("maven") {
+                sh "mvn clean"
+              }
             }
           }
           stage("RTI") {

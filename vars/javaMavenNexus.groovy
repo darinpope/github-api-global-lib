@@ -34,7 +34,7 @@ kind: Pod
 spec:
   containers:
   - name: maven
-    image: ${props["mavenImage"])}
+    image: ${props["mavenImage"]}
     command:
     - cat
     tty: true

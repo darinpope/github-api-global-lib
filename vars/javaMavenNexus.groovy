@@ -101,7 +101,10 @@ spec:
           stage("Buildah") {
             steps {
               container("buildah") {
-                sh "buildah version"
+                sh """
+                  buildah version
+                  buildah bud --help
+                """
               }
             }
           }

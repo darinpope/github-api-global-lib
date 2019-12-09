@@ -12,7 +12,12 @@ def call(body) {
       def d = [
         mavenImage: "maven:3.6.2-jdk-8",
         rtiEnable: false,
-        versionPrecheck: false
+        versionPrecheck: false,
+        deployJobEnable: false,
+        emailResults: false,
+        nexusScan: false,
+        coverityScan: false,
+        sonarQubeScan: false
       ]
       props = readProperties(defaults: d, file: 'javaMavenNexus.properties')
     }

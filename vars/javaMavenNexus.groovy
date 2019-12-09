@@ -6,7 +6,7 @@ def call(body) {
       checkout scm
       def d = [
         mavenImage: "maven:3.6.2-jdk-8",
-        buildahImage: "quay.io/buildah/stable:v1.11.6"
+        buildahImage: "quay.io/buildah/stable:v1.11.6",
         rtiEnable: false,
         versionPrecheck: false,
         deployJobEnable: false,

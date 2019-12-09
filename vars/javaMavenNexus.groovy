@@ -10,7 +10,7 @@ def call(body) {
     stage('Read parameters from javaMavenNexus'){
       checkout scm
       def d = [
-        mavenImage: maven\:3.6.2-jdk-8,
+        mavenImage: "maven:3.6.2-jdk-8",
         rtiEnable: false
       ]
       props = readProperties(defaults: d, file: 'javaMavenNexus.properties')
@@ -41,11 +41,13 @@ spec:
     stages {
       stage("Initialize") {
         steps {
-          sh """
-            env
-            mvn -v
-            java -version
-          """
+          container("maven") {
+            sh """
+              env
+              mvn -v
+              java -version
+            """
+          }
         }
       }
       stage("Pre-Check of Input Files") {

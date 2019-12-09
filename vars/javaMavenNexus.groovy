@@ -34,7 +34,7 @@ kind: Pod
 spec:
   containers:
   - name: maven
-    image: ${getPropValue("mavenImage",props)}
+    image: ${props["mavenImage"])}
     command:
     - cat
     tty: true
@@ -58,19 +58,19 @@ spec:
       }
       stage("Pre-Check: Input Files") {
         when {
-          expression { return getPropValue("rtiEnable",props) }
-          expression { return getPropValue("rtiFileList",props) != null }
+          expression { return props["rtiEnable"] }
+          expression { return props["rtiFileList"] != null }
           not {
-            expression { return fileExists(getPropValue("rtiFileList",props)) }
+            expression { return fileExists(props["rtiFileList"]) }
           }
         }
         steps {
-          error(message:"*** Expecting file ${getPropValue("rtiFileList",props)} ***")
+          error(message:"*** Expecting file ${props["rtiFileList"]} ***")
         }
       }
       stage("Pre-Check: Version and Branch") {
         when {
-          expression { return getPropValue("versionPrecheck",props) }
+          expression { return props["versionPrecheck"]) }
           not {
             branch "release"
           }
@@ -90,7 +90,7 @@ spec:
           }
           stage("RTI") {
             when {
-              expression { return getPropValue("rtiEnable",props) }
+              expression { return props["rtiEnable"] }
             }
             steps {
               sh "echo rti"

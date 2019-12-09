@@ -11,7 +11,8 @@ def call(body) {
       checkout scm
       def d = [
         mavenImage: "maven:3.6.2-jdk-8",
-        rtiEnable: false
+        rtiEnable: false,
+        versionPrecheck: false
       ]
       props = readProperties(defaults: d, file: 'javaMavenNexus.properties')
     }
@@ -50,7 +51,7 @@ spec:
           }
         }
       }
-      stage("Pre-Check of Input Files") {
+      stage("Pre-Check: Input Files") {
         when {
           expression { return getPropValue("rtiEnable",props) }
           expression { return getPropValue("rtiFileList",props) != null }
@@ -60,6 +61,17 @@ spec:
         }
         steps {
           error(message:"*** Expecting file ${getPropValue("rtiFileList",props)} ***")
+        }
+      }
+      stage("Pre-Check: Version and Branch") {
+        when {
+          expression { return getPropValue("versionPrecheck",props) }
+          not {
+            branch "release"
+          }
+        }
+        steps {
+          error(message:"*** can't do this ***")
         }
       }
     }

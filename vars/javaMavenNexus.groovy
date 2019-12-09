@@ -52,12 +52,10 @@ spec:
       }
       stage("Pre-Check of Input Files") {
         when {
+          expression { return getPropValue("rtiEnable",props) }
+          expression { return getPropValue("rtiFileList",props) != null }
           not {
-            allOf {
-              expression { return getPropValue("rtiEnable",props) }
-              expression { return getPropValue("rtiFileList",props) != null }
-              expression { return fileExists(getPropValue("rtiFileList",props)) }
-            }
+            expression { return fileExists(getPropValue("rtiFileList",props)) }
           }
         }
         steps {

@@ -104,6 +104,7 @@ spec:
                 sh """
                   buildah version
                   buildah unshare --help
+                  buildah config --help
                   buildah bud --help
                   buildah bud -t foo:bar .
                   buildah tag --help

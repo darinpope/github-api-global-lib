@@ -9,5 +9,12 @@ def call(Map config=[:]) {
     "QA_BTrack_Clientline_Adapters_Group_Deployment_Pipeline_Job":"project-d",
     "QA_BTrack_Notification_Adapters_Group_Deployment_Pipeline_Job":"project-d"
   ]
-  return projectJobMapping["${config.jobName}"]
+  deployableJobs = sh (script: '''awk '{split(\$0,a,":"); print a[2]}' controlfile_bts.txt''',returnStdout: true).trim()
+  deployableJobList = deployableJobs.split("\\r\\n|\\n|\\r")
+  echo "Deployable Job List: ${deployableJobList}"
+  deployableJobList.each {
+    def projectId = projectJobMapping["${it}"]
+    echo "sending " + projectId
+    publishEvent(event:jsonEvent('{"event":"${projectId}"}'),verbose: true)
+  }
 }

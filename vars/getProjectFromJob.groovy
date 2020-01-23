@@ -15,6 +15,6 @@ def call(Map config=[:]) {
   deployableJobList.each {
     def projectId = projectJobMapping["${it}"]
     echo "sending " + projectId
-    publishEvent(event:jsonEvent('{"event":"${projectId}"}'),verbose: true)
+    publishEvent(event:jsonEvent("""{"event":"${projectId}"}"""),verbose: true)
   }
 }

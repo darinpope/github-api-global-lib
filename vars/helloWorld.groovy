@@ -1,3 +1,3 @@
-def call(Map config=[:]) {
-    sh "echo Hello world, ${config.name}"
+def call() {
+    sh "echo hello world"
 }

@@ -1,13 +1,4 @@
-def call(body) {
-
-    def pipelineParams = [:]
-    body.resolveStrategy = Closure.DELEGATE_FIRST
-    body.delegate = pipelineParams
-    body()
-
-    def autoDeploy = getValueOrDefault("${pipelineParams.autoDeploy}","n")
-    def runSmokeTests = getValueOrDefault("${pipelineParams.runSmokeTests}","n")
-    def notifyEmail = "${pipelineParams.notifyEmail}"
+def call(Map pipelineParams) {
 
     pipeline {
         agent {
@@ -34,22 +25,22 @@ def call(body) {
                         command:
                             - cat
                         tty: true
-                      - name: artifactory 
+                      - name: artifactory
                         image: gcc:8.1.0
                         command:
                             - cat
                         tty: true
-                      - name: deployer 
+                      - name: deployer
                         image: gcc:8.1.0
                         command:
                             - cat
                         tty: true
-                      - name: guismoketest 
+                      - name: guismoketest
                         image: gcc:8.1.0
                         command:
                             - cat
                         tty: true
-                      - name: servicesmoketest 
+                      - name: servicesmoketest
                         image: gcc:8.1.0
                         command:
                             - cat
@@ -60,6 +51,11 @@ def call(body) {
         options {
             buildDiscarder(logRotator(numToKeepStr: '5'))
             durabilityHint('PERFORMANCE_OPTIMIZED')
+        }
+        environment {
+            autoDeploy = getValueOrDefault("${pipelineParams.autoDeploy}","n")
+            runSmokeTests = getValueOrDefault("${pipelineParams.runSmokeTests}","n")
+            notifyEmail = "${pipelineParams.notifyEmail}"
         }
         stages {
             stage("Prepare Build Environment") {

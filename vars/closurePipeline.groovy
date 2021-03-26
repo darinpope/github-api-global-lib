@@ -1,8 +1,4 @@
-def call(body) {
-    def pipelineParams= [:]
-    body.resolveStrategy = Closure.DELEGATE_FIRST
-    body.delegate = pipelineParams
-    body()
+def call(Map pipelineParams) {
 
     pipeline {
         agent { label "master" }
@@ -24,7 +20,7 @@ def call(body) {
             }
             stage("SonarQube Scan") {
                 when {
-                    equals expected: "toomuch", actual: pipelineParams?.sonar?.sing
+                    equals expected: "toomuch", actual: "${pipelineParams.sonar.sing}"
                 }
                 steps {
                     echo 'scan'

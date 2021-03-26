@@ -1,13 +1,4 @@
-def call(body) {
-
-    def pipelineParams = [:]
-    body.resolveStrategy = Closure.DELEGATE_FIRST
-    body.delegate = pipelineParams
-    body()
-
-    def autoDeploy = getValueOrDefault("${pipelineParams.autoDeploy}","n")
-    def runSmokeTests = getValueOrDefault("${pipelineParams.runSmokeTests}","n")
-    def notifyEmail = "${pipelineParams.notifyEmail}"
+def call(Map pipelineParams) {
 
     pipeline {
         agent none
@@ -16,6 +7,11 @@ def call(body) {
             preserveStashes(buildCount: 5)
             skipDefaultCheckout()
             durabilityHint('PERFORMANCE_OPTIMIZED')
+        }
+        environment {
+            autoDeploy = getValueOrDefault("${pipelineParams.autoDeploy}","n")
+            runSmokeTests = getValueOrDefault("${pipelineParams.runSmokeTests}","n")
+            notifyEmail = "${pipelineParams.notifyEmail}"
         }
         stages {
             stage("Prepare Build Environment") {

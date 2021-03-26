@@ -1,9 +1,4 @@
-def call(body) {
-
-    def pipelineParams = [:]
-    body.resolveStrategy = Closure.DELEGATE_FIRST
-    body.delegate = pipelineParams
-    body()
+def call(Map pipelineParams) {
 
     def autoDeploy = getValueOrDefault("${pipelineParams.autoDeploy}","n")
     def runSmokeTests = getValueOrDefault("${pipelineParams.runSmokeTests}","n")
@@ -34,22 +29,22 @@ def call(body) {
                         command:
                             - cat
                         tty: true
-                      - name: artifactory 
+                      - name: artifactory
                         image: gcc:8.1.0
                         command:
                             - cat
                         tty: true
-                      - name: deployer 
+                      - name: deployer
                         image: gcc:8.1.0
                         command:
                             - cat
                         tty: true
-                      - name: guismoketest 
+                      - name: guismoketest
                         image: gcc:8.1.0
                         command:
                             - cat
                         tty: true
-                      - name: servicesmoketest 
+                      - name: servicesmoketest
                         image: gcc:8.1.0
                         command:
                             - cat

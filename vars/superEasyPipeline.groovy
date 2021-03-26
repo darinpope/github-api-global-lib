@@ -1,3 +1,3 @@
-def call(body) {
-    easyPipeline("master",body)
+def call(Map pipelineParams) {
+    easyPipeline("master",pipelineParams)
 }

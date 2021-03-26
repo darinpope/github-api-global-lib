@@ -1,9 +1,4 @@
-def call(body) {
-
-    def pipelineParams = [:]
-    body.resolveStrategy = Closure.DELEGATE_FIRST
-    body.delegate = pipelineParams
-    body()
+def call(Map pipelineParams) {
 
     def autoDeploy = getValueOrDefault("${pipelineParams.autoDeploy}","n")
     def runSmokeTests = getValueOrDefault("${pipelineParams.runSmokeTests}","n")

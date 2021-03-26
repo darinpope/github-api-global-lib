@@ -1,9 +1,5 @@
 def call(Map pipelineParams) {
 
-    def autoDeploy = getValueOrDefault("${pipelineParams.autoDeploy}","n")
-    def runSmokeTests = getValueOrDefault("${pipelineParams.runSmokeTests}","n")
-    def notifyEmail = "${pipelineParams.notifyEmail}"
-
     pipeline {
         agent {
             kubernetes {
@@ -55,6 +51,11 @@ def call(Map pipelineParams) {
         options {
             buildDiscarder(logRotator(numToKeepStr: '5'))
             durabilityHint('PERFORMANCE_OPTIMIZED')
+        }
+        environment {
+            autoDeploy = getValueOrDefault("${pipelineParams.autoDeploy}","n")
+            runSmokeTests = getValueOrDefault("${pipelineParams.runSmokeTests}","n")
+            notifyEmail = "${pipelineParams.notifyEmail}"
         }
         stages {
             stage("Prepare Build Environment") {

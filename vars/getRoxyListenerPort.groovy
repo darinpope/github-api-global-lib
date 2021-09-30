@@ -1,3 +1,3 @@
 def call() {
-  return 65000  
+  return Math.abs(new Random().nextInt() % 500) + 65000  
 }

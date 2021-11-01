@@ -17,7 +17,7 @@ def call(Map config=[:]) {
          version: fixVersion
         ]
         def json = new groovy.json.JsonBuilder()
-        json rootKey: m
+        json m
         println json.toString()
         //publishEvent(jsonEvent('{"foo":"bar"}'))
         break;
@@ -30,7 +30,7 @@ def call(Map config=[:]) {
          version: fixVersion
         ]
         def json = new groovy.json.JsonBuilder()
-        json rootKey: m
+        json m
         println json.toString()
         //publishEvent(jsonEvent('{"foo":"bar"}'))
         break;

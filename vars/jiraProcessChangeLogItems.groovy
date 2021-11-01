@@ -11,23 +11,23 @@ def call(Map config=[:]) {
       case {it == ["Backlog","Selected for Development"]}
         def component = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.components[0]?.name
         def fixVersion = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.fixVersions[0]?.name
-        def m = [
-          event: "deploy-to-qa",
-          component: component,
-          version: fixVersion
-        ]
+        //def m = [
+        //  event: "deploy-to-qa",
+        //  component: component,
+        //  version: fixVersion
+        //]
         println m.inspect()
         //publishEvent(jsonEvent('{"foo":"bar"}'))
         break;
       case {it == ["Selected for Development","In Progress"]}
         def component = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.components[0]?.name
         def fixVersion = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.fixVersions[0]?.name
-        def m = [
-          event: "deploy-to-stage",
-          component: component,
-          version: fixVersion
-        ]
-        println m.inspect()
+        //def m = [
+        //  event: "deploy-to-stage",
+        //  component: component,
+        //  version: fixVersion
+        //]
+        //println m.inspect()
         //publishEvent(jsonEvent('{"foo":"bar"}'))
         break;
     }

@@ -3,5 +3,5 @@ def call(Map config=[:]) {
   if(0 == changeLogItems.size()) {
     return
   }
-  echo changeLogItems.size()
+  println changeLogItems.size()
 }

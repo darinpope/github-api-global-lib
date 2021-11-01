@@ -16,7 +16,9 @@ def call(Map config=[:]) {
          component: component,
          version: fixVersion
         ]
-        println m.inspect()
+        def json = new groovy.json.JsonBuilder()
+        json rootKey: m
+        println json.toString()
         //publishEvent(jsonEvent('{"foo":"bar"}'))
         break;
       case {it == ["Selected for Development","In Progress"]}:
@@ -27,7 +29,9 @@ def call(Map config=[:]) {
          component: component,
          version: fixVersion
         ]
-        println m.inspect()
+        def json = new groovy.json.JsonBuilder()
+        json rootKey: m
+        println json.toString()
         //publishEvent(jsonEvent('{"foo":"bar"}'))
         break;
     }

@@ -20,8 +20,8 @@ def call(Map config=[:]) {
         //publishEvent(jsonEvent('{"foo":"bar"}'))
         break;
       case {it == ["Selected for Development","In Progress"]}
-        def component = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.components[0]?.name
-        def fixVersion = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.fixVersions[0]?.name
+        //def component = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.components[0]?.name
+        //def fixVersion = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.fixVersions[0]?.name
         //def m = [
         //  event: "deploy-to-stage",
         //  component: component,

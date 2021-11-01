@@ -14,7 +14,7 @@ def call(Map config=[:]) {
         def component = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.components[0]?.name
         def fixVersion = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.fixVersions[0]?.name
         def m = [
-          event: "deploy-to-qa",
+          event: "deploy-to-stage",
           component: component,
           version: fixVersion
         ]

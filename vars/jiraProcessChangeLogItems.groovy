@@ -9,31 +9,29 @@ def call(Map config=[:]) {
     def fromTo = it.fromString+"||"+it.toString
     switch(fromTo) {
       case "Backlog||Selected for Development":
-        println "Here 1"
-        // def component = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.components[0]?.name
-        // def fixVersion = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.fixVersions[0]?.name
-        // def m = [
-        //  event: "deploy-to-qa",
-        //  component: component,
-        //  version: fixVersion
-        // ]
-        // def json = new groovy.json.JsonBuilder()
-        // json rootKey: m
-        // println json.toString()
+        def component = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.components[0]?.name
+        def fixVersion = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.fixVersions[0]?.name
+        def m = [
+         event: "deploy-to-qa",
+         component: component,
+         version: fixVersion
+        ]
+        def json = new groovy.json.JsonBuilder()
+        json rootKey: m
+        println json.toString()
         //publishEvent(jsonEvent('{"foo":"bar"}'))
         break;
       case "Selected for Development||In Progress":
-        println "Here 2"
-        // def component = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.components[0]?.name
-        // def fixVersion = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.fixVersions[0]?.name
-        // def m = [
-        //  event: "deploy-to-stage",
-        //  component: component,
-        //  version: fixVersion
-        // ]
-        // def json = new groovy.json.JsonBuilder()
-        // json rootKey: m
-        // println json.toString()
+        def component = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.components[0]?.name
+        def fixVersion = currentBuild.getBuildCauses()[0]?.event?.issue?.fields?.fixVersions[0]?.name
+        def m = [
+         event: "deploy-to-stage",
+         component: component,
+         version: fixVersion
+        ]
+        def json = new groovy.json.JsonBuilder()
+        json rootKey: m
+        println json.toString()
         //publishEvent(jsonEvent('{"foo":"bar"}'))
         break;
     }

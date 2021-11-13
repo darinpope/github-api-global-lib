@@ -14,6 +14,7 @@ def call(body) {
         agent { 
           docker { 
             image "${pipelineParams.frontendAgent}"
+            reuseNode true
           }
         }
         when {
@@ -34,6 +35,7 @@ def call(body) {
         agent { 
           docker { 
             image "${pipelineParams.backendWebAgent}"
+            reuseNode true
           }
         }
         when {
@@ -51,6 +53,7 @@ def call(body) {
         agent { 
           docker { 
             image "${pipelineParams.backendApiAgent}"
+            reuseNode true
           }
         }
         when {

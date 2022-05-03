@@ -1,7 +1,7 @@
-def call(Map config=[returnStatus:false,returnStdout:false]) {
+def call(Map config=[:]) {
   if(isUnix()) {
-    sh(script:config.script, returnStatus:config.returnStatus, returnStdout:config.returnStdout)
+    sh(script:config.script)
   } else {
-    bat(script:config.script, returnStatus:config.returnStatus, returnStdout:config.returnStdout)
+    bat(script:config.script)
   }
 }

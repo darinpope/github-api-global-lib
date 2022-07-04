@@ -1,9 +1,4 @@
-def call(String agentLabel,body) {
-    
-    def pipelineParams= [:]
-    body.resolveStrategy = Closure.DELEGATE_FIRST
-    body.delegate = pipelineParams
-    body()
+def call(String agentLabel,Map pipelineParams) {
 
     pipeline {
         agent none
@@ -15,7 +10,7 @@ def call(String agentLabel,body) {
                     echo "${agentLabel}"
                     echo "${pipelineParams.osConfiguration}"
                     echo "${pipelineParams.osConfiguration.OS_VERSION}"
-                    echo "${pipelineParams.osConfiguration.DIR_TYPE}"                    
+                    echo "${pipelineParams.osConfiguration.DIR_TYPE}"
                 }
             }
             stage("Prepare Build Environment") {
@@ -75,7 +70,7 @@ def call(String agentLabel,body) {
             //        }
             //        echo "Webhook called with data: ${data}"
             //    }
-            //}         
+            //}
         }
         //post {
         //    always {

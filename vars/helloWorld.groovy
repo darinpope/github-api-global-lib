@@ -1,3 +1,3 @@
 def call(String name,String dayOfWeek) {
-    sh "echo Hello World-02"
+    sh "echo hello world"
 }

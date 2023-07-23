@@ -1,3 +1,3 @@
-def call(String name,String dayOfWeek) {
+def call() {
     sh "echo hello world"
 }

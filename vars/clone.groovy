@@ -10,3 +10,4 @@ def checkoutGitRepository(String repositoryUrl, String branch, String targetDir)
            echo "success"
         }
     }
+}

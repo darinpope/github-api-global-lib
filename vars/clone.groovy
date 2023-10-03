@@ -2,12 +2,14 @@
 def checkoutGitRepository(String repositoryUrl, String branch, String targetDir) {
     node {
         stage('Checkout') {
-            checkout([$class: 'GitSCM',
-                branches: [[name: branch]],
-                doGenerateSubmoduleConfigurations: false,
-                extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'RelativeTargetDirectory', relativeTargetDir: targetDir]],
-                userRemoteConfigs: [[url: repositoryUrl]]])
-           echo "success"
+            
+           // Checkout the Git repository using the 'checkout' step
+    checkout([$class: 'GitSCM',
+              branches: [[name: branch]],
+              userRemoteConfigs: [[url: repositoryUrl]],
+              extensions: [[$class: 'CleanCheckout'], [$class: 'RelativeTargetDirectory', relativeTargetDir: targetDir]]])
+
+            echo "success"
         }
     }
 }

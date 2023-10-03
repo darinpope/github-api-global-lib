@@ -11,5 +11,10 @@ def checkoutGitRepository(String repositoryUrl, String branch, String targetDir)
                 userRemoteConfigs: [[url: repositoryUrl]]])
             echo "success"
         }
+         stage('Build') {
+        // Add commands or steps to build your code
+        sh "cd ${targetDir}"
+        sh "mvn clean install"  // Example: Building Java code with Maven
+    }
     }
 }

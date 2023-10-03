@@ -1,10 +1,12 @@
-def call(String gitUrl, String branch) {
-    def gitCommand = """git clone ${gitUrl} -b ${branch}"""
-    
-    try {
-        sh(script: gitCommand, returnStatus: true)
-        echo "Git clone succeeded."
-    } catch (Exception e) {
-        error "Git clone failed: ${e.message}"
+// mySharedLibrary.groovy
+def checkoutGitRepository(String repositoryUrl, String branch, String targetDir) {
+    node {
+        stage('Checkout') {
+            checkout([$class: 'GitSCM',
+                branches: [[name: branch]],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'RelativeTargetDirectory', relativeTargetDir: targetDir]],
+                userRemoteConfigs: [[url: repositoryUrl]]])
+           echo "success"
+        }
     }
-}

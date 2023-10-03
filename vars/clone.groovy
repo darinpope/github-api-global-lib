@@ -1,7 +1,7 @@
 // mySharedLibrary.groovy
 def checkoutGitRepository(String repositoryUrl, String branch, String targetDir) {
     node {
-        stage('Checkout') {
+        stage('SCM_Checkout') {
             
            // Checkout the Git repository using the 'checkout' step
    checkout([$class: 'GitSCM',

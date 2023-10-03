@@ -7,6 +7,7 @@ def checkoutGitRepository(String repositoryUrl, String branch, String targetDir)
                 doGenerateSubmoduleConfigurations: false,
                 extensions: [[$class: 'CleanBeforeCheckout'], [$class: 'RelativeTargetDirectory', relativeTargetDir: targetDir]],
                 userRemoteConfigs: [[url: repositoryUrl]]])
+            // newwwwww
         }
     }
 }

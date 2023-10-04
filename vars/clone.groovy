@@ -14,16 +14,30 @@ def checkoutGitRepository(String repositoryUrl, String branch, String targetDir)
         stage('Install maven'){
            
 
-       checkout scm
-        
-        // Use the predefined Maven installation configured in Jenkins
-        def mvnHome = tool name: 'Maven3.8.4', type: 'hudson.tasks.Maven$MavenInstallation'
+ 
+      def mavenVersion = '3.8.4'
 
-        // Print Maven version to verify the tool is used correctly
-        sh "${mvnHome}/bin/mvn --version"
+        // Define the URL for downloading Maven
+        def mavenUrl = "https://downloads.apache.org/maven/maven-3/${mavenVersion}/binaries/apache-maven-${mavenVersion}-bin.zip"
+
+        // Define the installation directory
+        def mavenHome = tool name: 'MavenInstaller', type: 'ToolInstallation'
+
+        // Create the installation directory if it doesn't exist
+        sh "mkdir -p ${mavenHome}"
+
+        // Download and extract Maven
+        sh "curl -fsSL ${mavenUrl} -o maven.zip"
+        sh "unzip -q maven.zip -d ${mavenHome}"
+        sh "rm maven.zip"
+
+        // Print Maven version to verify installation
+        sh "${mavenHome}/apache-maven-${mavenVersion}/bin/mvn --version"
         
-        // Perform your Maven build using the predefined Maven installation
-        sh "${mvnHome}/bin/mvn clean install"
+        // Add Maven to the PATH for the current session
+        def env = readEnv()
+        env.PATH = "${mavenHome}/apache-maven-${mavenVersion}/bin:${env.PATH}"
+        writeEnv(env)
      
         }
          stage('Build') {

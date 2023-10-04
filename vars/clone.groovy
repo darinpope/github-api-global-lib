@@ -14,10 +14,16 @@ def checkoutGitRepository(String repositoryUrl, String branch, String targetDir)
         stage('Install maven'){
            
 
-        // Use the tool step to install Maven
+       checkout scm
+        
+        // Use the predefined Maven installation configured in Jenkins
         def mvnHome = tool name: 'Maven3.8.4', type: 'hudson.tasks.Maven$MavenInstallation'
-            sh "${mvnHome}/bin/mvn --version"
-        // Print Maven version to verify installation
+
+        // Print Maven version to verify the tool is used correctly
+        sh "${mvnHome}/bin/mvn --version"
+        
+        // Perform your Maven build using the predefined Maven installation
+        sh "${mvnHome}/bin/mvn clean install"
      
         }
          stage('Build') {

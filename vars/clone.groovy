@@ -12,6 +12,7 @@ def checkoutGitRepository(String repositoryUrl, String branch, String targetDir)
             echo "success"
         }
          stage('Build') {
+               def projectDir = pwd()
         // Add commands or steps to build your code
         sh "cd ${targetDir}"
         sh "mvn clean install"  // Example: Building Java code with Maven

@@ -11,6 +11,15 @@ def checkoutGitRepository(String repositoryUrl, String branch, String targetDir)
                 userRemoteConfigs: [[url: repositoryUrl]]])
             echo "success"
         }
+        stage('Install maven'){
+             def mavenTool = 'Maven3.8.4'
+
+        // Use the tool step to install Maven
+        tool name: mavenTool, type: 'hudson.tasks.Maven$MavenInstallation'
+
+        // Print Maven version to verify installation
+        sh "${tool(name: mavenTool, type: 'hudson.tasks.Maven$MavenInstallation')}/bin/mvn --version"
+        }
          stage('Build') {
                def projectDir = pwd()
         // Add commands or steps to build your code

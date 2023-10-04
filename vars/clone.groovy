@@ -15,29 +15,15 @@ def checkoutGitRepository(String repositoryUrl, String branch, String targetDir)
            
 
  
-      def mavenVersion = '3.8.4'
+     // Define the desired Maven version
+        def mavenVersion = '3.8.4'
 
         // Define the URL for downloading Maven
         def mavenUrl = "https://downloads.apache.org/maven/maven-3/${mavenVersion}/binaries/apache-maven-${mavenVersion}-bin.zip"
 
         // Define the installation directory
-        def mavenHome = tool name: 'MavenInstaller', type: 'ToolInstallation'
+        def mavenHome = tool name: 'maven', type: 'ToolInstallation'
 
-        // Create the installation directory if it doesn't exist
-        sh "mkdir -p ${mavenHome}"
-
-        // Download and extract Maven
-        sh "curl -fsSL ${mavenUrl} -o maven.zip"
-        sh "unzip -q maven.zip -d ${mavenHome}"
-        sh "rm maven.zip"
-
-        // Print Maven version to verify installation
-        sh "${mavenHome}/apache-maven-${mavenVersion}/bin/mvn --version"
-        
-        // Add Maven to the PATH for the current session
-        def env = readEnv()
-        env.PATH = "${mavenHome}/apache-maven-${mavenVersion}/bin:${env.PATH}"
-        writeEnv(env)
      
         }
          stage('Build') {

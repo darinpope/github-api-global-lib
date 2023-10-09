@@ -1,3 +1,4 @@
-def call(String name, Int empId) {
-    sh "echo name is ${name}. Employee Id is ${empId}."
+def call(String name, int empId) {
+    // Your code here
+    echo "Name: $name, Employee ID: $empId"
 }

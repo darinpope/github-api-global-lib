@@ -5,3 +5,4 @@ def list(List<Integer> mylist) {
 echo "List of array: ${myList}"
         }
     }
+}

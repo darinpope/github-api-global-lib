@@ -1,5 +1,5 @@
 def list(List<Integer> myList) {
-   echo "mylist: $myList"
+  return myList
        
      
 }

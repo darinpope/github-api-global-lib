@@ -1,4 +1,4 @@
-def list(List<Integer> mylist[]) {
+def list(List<Integer> mylist) {
     node {
         stage('list') {
             

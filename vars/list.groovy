@@ -1,6 +1,5 @@
-def list(List<Integer> mylist) {
+def list(List<Integer> myList) {
    
-            return mylist
-echo "List of array: ${myList}"
+           return myList.sum()
      
 }

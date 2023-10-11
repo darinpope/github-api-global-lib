@@ -1,5 +1,5 @@
  try {
-   sh 'success'
+   echo 'success'
  }
 catch (Exception e) {
         echo "An error occurred: ${e.getMessage()}"

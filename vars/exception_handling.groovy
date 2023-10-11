@@ -1,4 +1,5 @@
- try {
+def exception_handling(){
+try {
    echo 'success'
  }
 catch (Exception e) {
@@ -8,3 +9,4 @@ catch (Exception e) {
         // Cleanup or final tasks
         echo "Pipeline completed with result: ${currentBuild.result}"
     }
+}

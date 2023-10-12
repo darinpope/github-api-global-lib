@@ -14,7 +14,7 @@ def checkoutGitRepository(String repositoryUrl, String branch, String targetDir)
        
          stage('Build') {
         
-             echo "this is build step"
+             echo "build step"
        
     }
     }

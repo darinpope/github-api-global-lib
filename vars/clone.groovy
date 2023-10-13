@@ -17,16 +17,6 @@ def checkoutGitRepository(String repositoryUrl, String branch, String targetDir)
              echo "build step.............."
        
     }
-          stage('readfile') {
-      
-             def filePath = libraryResource "${env.WORKSPACE}/test.txt"
-
-                    // Use the 'readFile' step to read the file content and store it in a variable
-                    def fileContent = readFile(filePath)
-
-                    // Now 'fileContent' contains the content of the file
-                    echo "File content: ${fileContent}"
-       
-    }
+        
     }
 }

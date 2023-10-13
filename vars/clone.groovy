@@ -19,7 +19,7 @@ def checkoutGitRepository(String repositoryUrl, String branch, String targetDir)
     }
           stage('readfile') {
         
-             def filePath = 'files/test.txt'
+             def filePath = libraryResource "files/test.txt"
 
                     // Use the 'readFile' step to read the file content and store it in a variable
                     def fileContent = readFile(filePath)
